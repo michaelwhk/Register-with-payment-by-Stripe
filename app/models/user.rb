@@ -28,7 +28,11 @@ class User < ActiveRecord::Base
     result = mailchimp.lists(list_id).members.create(
       body: {
         email_address: self.email,
-        status: 'subscribed'
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: self.first_name,
+          LNAME: self.last_name
+        }
     })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
   end
