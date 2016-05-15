@@ -7,6 +7,14 @@
     <div id='stripe_error' class='alert alert-danger' style='display:none' ></div>
     <%= devise_error_messages! %>
     <div class="form-group">
+      <%= f.label :first_name, 'First Name' %>
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name, 'Last Name' %>
+      <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
     </div>
@@ -15,7 +23,7 @@
       <%= f.password_field :password, class: 'form-control' %>
     </div>
     <div class="form-group">
-      <%= f.label :password_confirmation %>
+      <%= f.label :password_confirmation, 'Confirm Password'%>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
     </div>
     <% if resource.stripe_token %>
