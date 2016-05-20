@@ -7,6 +7,7 @@ class MakePaymentService
     end
     customer = create_customer(user)
     subscription = create_subscribe(customer)
+    user.subscription_id = subscription.id
 
     # Charge works for one time payment
     # charge = create_charge(customer)
@@ -30,17 +31,18 @@ class MakePaymentService
   # This works for create a user in Stripe
   def create_customer(user)
     customer = Stripe::Customer.create(
-      :email => user.email,
+      :email  => user.email,
       # Add for test payment
       :source => user.stripe_token,
-      :plan => "oq_membership"
+      # => if you are setting :plan, it seems will subscribed to a plan and charge automatically
+      # :plan   => "oq_membership"
       # Add for test payment
       # :card => user.stripe_token
     )
   end
 
   def create_subscribe(customer)
-    Stripe::Subscription.create(
+    subscription = Stripe::Subscription.create(
     :customer   => customer.id,
     :plan       => "oq_membership"
     )
